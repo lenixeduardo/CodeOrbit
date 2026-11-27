@@ -208,7 +208,7 @@ export function closeModal(modalId) {
 
   // Keep the existing closing animation, but cancel stale callbacks on reopen.
   modal.classList.add('closing');
-  let timer;
+  const timer = setTimeout(finish, 250);
   const cleanup = () => {
     clearTimeout(timer);
     modal.removeEventListener('animationend', finish);
@@ -219,7 +219,6 @@ export function closeModal(modalId) {
     cleanup();
     modal.classList.remove('closing', 'active');
   }
-  timer = setTimeout(finish, 250);
   closingDialogs.set(modal, cleanup);
   modal.addEventListener('animationend', finish);
 }
